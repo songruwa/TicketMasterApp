@@ -24,7 +24,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter{
     public Fragment createFragment(int position) {
         switch(position) {
             case 0:
-                return new Search();
+                return new parent(); // return parent fragment instead
             case 1:
                 return new Favorite();
             default:

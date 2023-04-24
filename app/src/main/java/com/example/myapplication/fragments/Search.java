@@ -243,6 +243,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
             }
         });
 
+
         // click search button, searchEvents will be called
         // Find the Submitbutton
         Button submitButton = view.findViewById(R.id.Submitbutton);
@@ -251,8 +252,19 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchEvents(selectedEventName, distance_input, segmentId, latitude, longitude);
-                NavHostFragment.findNavController(Search.this).navigate(R.id.action_searchFragment_to_searchResultsFragment);
+//                searchEvents(selectedEventName, distance_input, segmentId, latitude, longitude);
+
+                // Create an instance of SearchResultsFragment and pass the parameters to it
+                SearchResultsFragment searchResultsFragment = new SearchResultsFragment();
+                Bundle args = new Bundle();
+                args.putInt("distance_input", distance_input);
+                args.putString("selectedEventName", selectedEventName);
+                args.putString("segmentId", segmentId);
+                args.putString("latitude", latitude);
+                args.putString("longitude", longitude);
+                searchResultsFragment.setArguments(args);
+
+                NavHostFragment.findNavController(Search.this).navigate(R.id.action_searchFragment_to_searchResultsFragment, args);
 
             }
         });
@@ -380,28 +392,28 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
 
 
-    //tic-table api GET
-    private void searchEvents(String keywordInput, int distance, String segmentId, String lat, String lng) {
-
-
-        String apiUrl = String.format("https://ticketmasterhw6.nn.r.appspot.com/tic?keyword=%s&distance=%d&segmentId=%s&lat=%s&lng=%s",
-                Uri.encode(keywordInput), distance, segmentId, lat, lng);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        tableData = response;
-                        Log.d("EventsSearchResult", tableData.toString());                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        requestQueue.add(jsonObjectRequest);
-    }
+//    //tic-table api GET
+//    private void searchEvents(String keywordInput, int distance, String segmentId, String lat, String lng) {
+//
+//
+//        String apiUrl = String.format("https://ticketmasterhw6.nn.r.appspot.com/tic?keyword=%s&distance=%d&segmentId=%s&lat=%s&lng=%s",
+//                Uri.encode(keywordInput), distance, segmentId, lat, lng);
+//
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        tableData = response;
+//                        Log.d("EventsSearchResult", tableData.toString());                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//            }
+//        });
+//
+//        requestQueue.add(jsonObjectRequest);
+//    }
 
 
 
