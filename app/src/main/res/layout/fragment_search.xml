@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_results_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.Search">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="550dp"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/KEYWORD"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:text="Keyword"
+            android:textColor="#00FF00"
+            android:textColorHint="#FFFFFF" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="#00FF00"
+            android:hint="Enter the keyword"
+            android:textColorHint="#F6F3F3" />
+
+
+        <TextView
+            android:id="@+id/DISTANCE"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:text="Distance (Miles)"
+            android:textColor="#00FF00" />
+
+        <EditText
+            android:id="@+id/DISTANCEINPUT"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FF00"
+            android:ems="10"
+            android:inputType="number"
+            android:text="10"
+            android:textColor="#F6F3F3" />
+
+        <TextView
+            android:id="@+id/CATEGORY"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textColor="#00FF00" />
+        <!--        https://www.geeksforgeeks.org/spinner-in-android-using-java-with-example/-->
+        <!--            https://stackoverflow.com/questions/32166347/change-color-of-the-drop-down-arrow-of-spinner-in-xml-->
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"
+            android:textColor="@color/white" />
+
+        <!--        https://stackoverflow.com/questions/26041411/android-textview-and-button-on-same-line-in-expandablelistview-->
+        <LinearLayout
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/LOCATION"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+
+                android:text="Location"
+                android:textColor="#00FF00" />
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:text="Auto-Detect"
+                android:textColor="#D3D3D3"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/LOCATIONINPUT"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FF00"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Enter the Location"
+            android:textColor="#F6F3F3" />
+
+        <LinearLayout
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Submitbutton"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/green"
+                android:text="Search" />
+
+            <Button
+                android:id="@+id/Clearbutton"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/orange"
+                android:text="Clear" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
