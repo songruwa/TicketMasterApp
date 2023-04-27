@@ -10,6 +10,9 @@
     <string name="venue_name">Venue Name</string>
     <string name="date_time">Date and Time</string>
     <string name="favorite">Favorite</string>
+    <string name="detail_view">DETAILS</string>
+    <string name="artist_view">ARTIST(S)</string>
+    <string name="venue_view">VENUE</string>
 
 
 </resources>
