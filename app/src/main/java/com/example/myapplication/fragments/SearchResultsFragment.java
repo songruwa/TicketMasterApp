@@ -1,16 +1,17 @@
 package com.example.myapplication.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.DetailsOfEvent;
 import com.example.myapplication.EventListAdapter;
 import com.example.myapplication.R;
 
@@ -34,14 +36,29 @@ import java.util.List;
 
 import com.example.myapplication.Event;
 import com.example.myapplication.Venue;
+import com.example.myapplication.selectListener;
 
 
-public class SearchResultsFragment extends Fragment {
+public class SearchResultsFragment extends Fragment implements selectListener  {
 
     private RequestQueue requestQueue;
     private JSONObject tableData;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private selectListener mListener;
+    private List<Event> eventList = new ArrayList<>();
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof selectListener) {
+            mListener = (selectListener) context;
+            Log.d("SearchResultsFragment","Setting mListener"+ mListener);
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement selectListener");
+        }
+    }
 
     public SearchResultsFragment() {
         // Required empty public constructor
@@ -59,6 +76,11 @@ public class SearchResultsFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         requestQueue = Volley.newRequestQueue(getContext());
+
+        selectListener listener = mListener;
+
+        EventListAdapter adapter = new EventListAdapter(eventList, listener);
+        recyclerView.setAdapter(adapter);
 
         // Retrieve the parameters passed from SearchFragment
         Bundle args = getArguments();
@@ -79,6 +101,7 @@ public class SearchResultsFragment extends Fragment {
         });
         return view;
     }
+
 
 
     //tic-table api GET
@@ -121,7 +144,10 @@ public class SearchResultsFragment extends Fragment {
                                 eventList.add(event);
                             }
                             Log.d("Event List size is", String.valueOf(eventList.size()));
-                            EventListAdapter adapter = new EventListAdapter(eventList);
+                            EventListAdapter adapter = new EventListAdapter(eventList, mListener);
+
+
+
                             recyclerView.setAdapter(adapter);
                             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         } catch (JSONException e) {
@@ -138,5 +164,10 @@ public class SearchResultsFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
+
+    @Override
+    public void onItemClicked(@NonNull Context context, @NonNull Event event) {
+
+    }
 }
 

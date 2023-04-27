@@ -7,12 +7,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements selectListener{
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
@@ -63,5 +65,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-
+    @Override
+    public void onItemClicked(Context context, Event event) {
+// Create an Intent to start the new activity
+        Intent intent = new Intent(context, DetailsOfEvent.class);
+        // Pass the necessary data using putExtra() methods
+        intent.putExtra("eventName", event.getName());
+        intent.putExtra("eventVenue", event.getVenue().getName());
+        intent.putExtra("eventDate", event.getLocalDate());
+        intent.putExtra("eventTime", event.getLocalTime());
+        // Start the new activity
+        context.startActivity(intent);
+    }
 }
