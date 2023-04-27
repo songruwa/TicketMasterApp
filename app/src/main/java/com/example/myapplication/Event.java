@@ -9,6 +9,7 @@ public class Event {
     private List<String> images;
     private String segment;
     private Venue venue;
+    private String id;
 
     public String getName() {
         return name;
@@ -57,5 +58,9 @@ public class Event {
     public void setVenue(Venue venue) {
         this.venue = venue;
     }
+
+    public void setId(String eventId) {this.id = eventId;}
+
+    public String getId() {return id;}
 }
 

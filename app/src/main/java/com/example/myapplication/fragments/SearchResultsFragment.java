@@ -128,6 +128,7 @@ public class SearchResultsFragment extends Fragment implements selectListener  {
                                 event.setLocalDate(eventObject.getJSONObject("dates").getJSONObject("start").optString("localDate",""));
                                 event.setLocalTime(eventObject.getJSONObject("dates").getJSONObject("start").optString("localTime", ""));
                                 event.setSegment(eventObject.getJSONArray("classifications").getJSONObject(0).getJSONObject("segment").optString("name",""));
+                                event.setId(eventObject.getString("id"));
 
                                 JSONArray imageArray = eventObject.getJSONArray("images");
                                 List<String> imageList = new ArrayList<>();

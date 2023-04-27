@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -53,6 +54,12 @@ public class DetailsOfEvent extends AppCompatActivity {
             tab.setText(adapter.getPageTitle(position));
             viewPager.setCurrentItem(tab.getPosition(), true);
         }).attach();
+
+        // Get the event id, use this event id to get event details
+        String eventId = getIntent().getStringExtra("eventId");
+        Log.d("DetailsOfEvent", "Received eventId: " + eventId);
+
+
 
     }
 

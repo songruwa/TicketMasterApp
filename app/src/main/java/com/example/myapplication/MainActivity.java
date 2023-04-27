@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements selectListener{
         intent.putExtra("eventVenue", event.getVenue().getName());
         intent.putExtra("eventDate", event.getLocalDate());
         intent.putExtra("eventTime", event.getLocalTime());
+        intent.putExtra("eventId", event.getId());
         // Start the new activity
         context.startActivity(intent);
     }
