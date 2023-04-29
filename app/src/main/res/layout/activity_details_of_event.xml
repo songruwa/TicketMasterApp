@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsOfEvent">
+    tools:context=".DetailsOfEvent"
+    android:id="@+id/detailFragment">
 
 <!--    https://www.youtube.com/watch?v=ziJ6-AT3ymg-->
 

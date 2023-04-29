@@ -109,6 +109,8 @@ public class SearchResultsFragment extends Fragment implements selectListener  {
         String apiUrl = String.format("https://ticketmasterhw6.nn.r.appspot.com/tic?keyword=%s&distance=%d&segmentId=%s&lat=%s&lng=%s",
                 Uri.encode(keywordInput), distance, segmentId, lat, lng);
 
+        Log.d("SearchResultsFragment", "search url is: "+ apiUrl);
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
                 new Response.Listener<JSONObject>() {
                     @Override

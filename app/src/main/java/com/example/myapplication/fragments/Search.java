@@ -83,28 +83,6 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
     private ArrayAdapter<String> autoCompleteAdapter;
     private RequestQueue requestQueue;
 
-//    public interface OnSearchSubmittedListener {
-//        void onSearchSubmitted();
-//    }
-//
-//    private OnSearchSubmittedListener mListener;
-//
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnSearchSubmittedListener) {
-//            mListener = (OnSearchSubmittedListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString() + " must implement OnSearchSubmittedListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -138,6 +116,8 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                 String keyword = s.toString();
                 if (keyword.length() > 3) {
                     fetchSuggestions(keyword);
+                } else {
+                    selectedEventName = "";
                 }
             }
         });
@@ -252,13 +232,12 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                searchEvents(selectedEventName, distance_input, segmentId, latitude, longitude);
-
                 // Create an instance of SearchResultsFragment and pass the parameters to it
                 SearchResultsFragment searchResultsFragment = new SearchResultsFragment();
                 Bundle args = new Bundle();
                 args.putInt("distance_input", distance_input);
                 args.putString("selectedEventName", selectedEventName);
+                Log.d("Search", "selectedEventName is: "+selectedEventName);
                 args.putString("segmentId", segmentId);
                 args.putString("latitude", latitude);
                 args.putString("longitude", longitude);
