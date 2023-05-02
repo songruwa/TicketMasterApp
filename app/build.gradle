@@ -26,9 +26,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
+
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -44,7 +46,10 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    // ViewModel
+//    https://stackoverflow.com/questions/69817925/problem-duplicate-class-androidx-lifecycle-viewmodel-found-in-modules
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.4.0"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
 
 
 }

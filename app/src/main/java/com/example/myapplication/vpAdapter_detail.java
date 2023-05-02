@@ -3,39 +3,41 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.myapplication.fragments.artist_card;
+import com.example.myapplication.fragments.details_card;
+import com.example.myapplication.fragments.venue_card;
 
 import java.util.ArrayList;
 
 public class vpAdapter_detail extends FragmentStateAdapter {
 
-    private final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    private final ArrayList<String> fragmentTitle = new ArrayList<>();
 
-    public vpAdapter_detail(@NonNull FragmentManager fm, @NonNull Lifecycle lifecycle) {
-        super(fm, lifecycle);
+    public vpAdapter_detail(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return fragmentArrayList.get(position);
+        switch (position) {
+            case 0:
+                return new details_card();
+            case 1:
+                return new artist_card();
+            case 2:
+                return new venue_card();
+            default:
+                return new details_card();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return fragmentArrayList.size();
-    }
-
-    public void addFragment(Fragment fragment, String title) {
-        fragmentArrayList.add(fragment);
-        fragmentTitle.add(title);
-    }
-
-    @Nullable
-    public CharSequence getPageTitle(int position) {
-        return fragmentTitle.get(position);
+        return 3;
     }
 }

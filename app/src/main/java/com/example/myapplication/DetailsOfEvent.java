@@ -35,7 +35,7 @@ import org.json.JSONObject;
 public class DetailsOfEvent extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private ViewPager2 viewPager;
+    private ViewPager2 viewPager2;
     private vpAdapter_detail adapter;
     private String eventId;
 
@@ -49,8 +49,12 @@ public class DetailsOfEvent extends AppCompatActivity {
     private String buyTicketUrl;
     private String seatMapUrl;
 
-    private EventDetailsViewModel eventDetailsViewModel;
 
+    private artist_card artistFragment;
+    private details_card detailsFragment;
+    private venue_card venueFragment;
+
+    private  eventViewModel eventDetailsViewModel;
 
 
 
@@ -68,35 +72,49 @@ public class DetailsOfEvent extends AppCompatActivity {
         // Set up the back button in the top bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Find the UI elements
+
+
 
         // Tab Design
         tabLayout = findViewById(R.id.eventDetailTabLayout);
-        viewPager = findViewById(R.id.view_pager_eventDetails);
-        adapter = new vpAdapter_detail(getSupportFragmentManager(), getLifecycle());
+        viewPager2 = findViewById(R.id.view_pager_eventDetails);
+        adapter = new vpAdapter_detail(this);
+        viewPager2.setAdapter(adapter);
 
-        adapter.addFragment(new details_card(), "Details");
-        adapter.addFragment(new artist_card(), "Artist(s)");
-        adapter.addFragment(new venue_card(), "Venue");
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
 
-        viewPager.setAdapter(adapter);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            tab.setText(adapter.getPageTitle(position));
-            viewPager.setCurrentItem(tab.getPosition(), true);
-        }).attach();
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback(){
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tabLayout.getTabAt(position).select();
+            }
+        });
+
+
 
         // Get the event id, use this event id to get event details
         eventId = getIntent().getStringExtra("eventId");
         Log.d("DetailsOfEvent", "Received eventId: " + eventId);
 
-        // Initialize the ViewModel
-//        eventDetailsViewModel = new ViewModelProvider(this).get(EventDetailsViewModel.class);
 
-
-
-        // Call the event details API
         searchDetails(eventId);
+
 
     }
 
@@ -121,10 +139,6 @@ public class DetailsOfEvent extends AppCompatActivity {
 //    https://mobikul.com/pass-data-activity-fragment-android/
     // passing data from DetailsOfEvent to details_card
 
-
-
-
-    // Initialize the ViewModel
 
 
 
@@ -160,7 +174,7 @@ public class DetailsOfEvent extends AppCompatActivity {
 
                             // Get the genre
                             StringBuilder sb = new StringBuilder();
-                            
+
                             String subGenre = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("subGenre").optString("name","");
                             String genre = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("genre").optString("name","");
                             String segment = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("segment").optString("name", "");
@@ -212,29 +226,18 @@ public class DetailsOfEvent extends AppCompatActivity {
                                 Log.d("DetailsOfEvent", "seatmap url: "+seatMapUrl);
                             }
 
-                            // Update the UI with the extracted information
-                            details_card detailsCardFragment = new details_card();
 
-                            Bundle args = new Bundle();
-                            args.putString("local_Date", localDate);
-                            args.putString("local_Time",localTime);
-                            args.putString("artistsss", artist);
-                            args.putString("venue_Name", venueName);
-                            args.putString("genre_Names", genreNames);
-                            args.putString("price_Range", priceRange);
-                            args.putString("statussss", status);
-                            args.putString("buyTicket_Url",buyTicketUrl);
-                            args.putString("seat_MapUrl",seatMapUrl);
-                            if (args == null) {
-                                Log.d("DetailsOfEvent", "Passing args is null");
-                            } else {
-                                Log.d("DetailsOfEvent", "passing args: " + args);
-                            }
-                            detailsCardFragment.setArguments(args);
+                            eventDetailsViewModel = new ViewModelProvider(DetailsOfEvent.this).get(eventViewModel.class);
+                            eventDetailsViewModel.setLocalDate(localDate);
+                            eventDetailsViewModel.setLocalTime(localTime);
+                            eventDetailsViewModel.setArtist(artist);
+                            eventDetailsViewModel.setVenueName(venueName);
+                            eventDetailsViewModel.setGenreNames(genreNames);
+                            eventDetailsViewModel.setPriceRange(priceRange);
+                            eventDetailsViewModel.setStatus(status);
+                            eventDetailsViewModel.setBuyTicketUrl(buyTicketUrl);
+                            eventDetailsViewModel.setSeatMapUrl(seatMapUrl);
 
-                            FragmentManager manager = getSupportFragmentManager();
-                            FragmentTransaction transaction = manager.beginTransaction();
-                            transaction.replace(R.id.detailFragment, detailsCardFragment).commit();
 
                             // TODO: Update the UI with the extracted information
                         } catch (JSONException e) {

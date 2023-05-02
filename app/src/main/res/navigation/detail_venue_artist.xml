@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_venue_artist"
+    app:startDestination="@id/details_card">
+    <fragment
+        android:id="@+id/details_card"
+        android:name="com.example.myapplication.fragments.details_card"
+        android:label="fragment_details_card"
+        tools:layout="@layout/fragment_details_card" >
+        <action
+            android:id="@+id/action_details_card_to_artist_card"
+            app:destination="@id/artist_card" />
+    </fragment>
+    <fragment
+        android:id="@+id/artist_card"
+        android:name="com.example.myapplication.fragments.artist_card"
+        android:label="fragment_artist_card"
+        tools:layout="@layout/fragment_artist_card" >
+        <action
+            android:id="@+id/action_artist_card_to_venue_card"
+            app:destination="@id/venue_card" />
+    </fragment>
+    <fragment
+        android:id="@+id/venue_card"
+        android:name="com.example.myapplication.fragments.venue_card"
+        android:label="fragment_venue_card"
+        tools:layout="@layout/fragment_venue_card" />
+</navigation>
