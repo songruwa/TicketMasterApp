@@ -123,10 +123,11 @@ public class artist_card extends Fragment {
                             for (int i = 0; i < items.length(); i++) {
                                 JSONObject artistObj = items.getJSONObject(i);
                                 String name = artistObj.getString("name");
-                                Log.d("artist_card", "artist name: " + name);
                                 String followers = artistObj.getJSONObject("followers").getString("total");
                                 String popularity = artistObj.getString("popularity");
                                 String spotifyLink = artistObj.getJSONObject("external_urls").getString("spotify");
+                                Log.d("artist_card", "spotifyLink: " + spotifyLink);
+                                
                                 String artistId = artistObj.getString("id");
 
                                 List<String> albumCovers = fetchAlbumCovers(artistId); // Fetch album covers here
@@ -166,7 +167,7 @@ public class artist_card extends Fragment {
                             for (int i = 0; i < items.length(); i++) {
                                 JSONObject albumObj = items.getJSONObject(i);
                                 String coverUrl = albumObj.getJSONArray("images").getJSONObject(0).getString("url");
-                                Log.d("artist_card", "coverUrl: " + coverUrl);
+                                Log.d("artist_card", "coverUrl: "+ i + coverUrl);
                                 albumCovers.add(coverUrl);
                             }
 

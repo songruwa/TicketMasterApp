@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +33,20 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
 
     @Override
     public void onBindViewHolder(@NonNull ArtistViewHolder holder, int position) {
+        Log.d("ArtistAdapter", "onBindViewHolder() called, position: " + position);
+
         Artists currentArtist = artistList.get(position);
 
         holder.artistName.setText(currentArtist.getName());
         holder.followers.setText(currentArtist.getFollowers());
         holder.popularity.setText(currentArtist.getPopularity());
+        holder.SpotifyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentArtist.getSpotifyLink()));
+                v.getContext().startActivity(browserIntent);
+            }
+        });
 
         // Load the album covers and Spotify link here
 
@@ -46,6 +58,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
 
     @Override
     public int getItemCount() {
+        Log.d("ArtistAdapter", "getItemCount() called, list size: " + artistList.size());
+
         return artistList.size();
     }
 
@@ -56,6 +70,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         ImageView albumCover1;
         ImageView albumCover2;
         ImageView albumCover3;
+        TextView SpotifyLink;
 
         // Add other views as needed
 
@@ -68,6 +83,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
             albumCover1 = itemView.findViewById(R.id.album_cover_1);
             albumCover2 = itemView.findViewById(R.id.album_cover_2);
             albumCover3 = itemView.findViewById(R.id.album_cover_3);
+            SpotifyLink = itemView.findViewById(R.id.spotify_link);
+
         }
     }
 

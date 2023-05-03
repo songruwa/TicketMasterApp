@@ -42,8 +42,13 @@
                 android:id="@+id/spotify_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Spotify Link"
-                android:textSize="14sp" />
+                android:text="Check Out On Spotify"
+                android:textColor="#1DB954"
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+
 
         </LinearLayout>
 
