@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 
 //https://www.youtube.com/watch?time_continue=281&v=ACK67xU1Y3s&embeds_euri=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3Dpassing%2Bdata%2Bto%2Bviewmodel%2Bandroid%26rlz%3D1C5CHFA_enUS979US979%26sxsrf%3DAPwXEdfdZkOASlZjADIMEZGa9bDe6J7&source_ve_path=MTM5MTE3LDI4NjY2&feature=emb_logo
 public class eventViewModel  extends ViewModel {
@@ -32,14 +34,19 @@ public class eventViewModel  extends ViewModel {
     private MutableLiveData<String> status = new MutableLiveData<>();
     private MutableLiveData<String> buyTicketUrl = new MutableLiveData<>();
     private MutableLiveData<String> seatMapUrl = new MutableLiveData<>();
+    private MutableLiveData<String> musicOrNot = new MutableLiveData<>();
+    private MutableLiveData<List<Artists>> artistsList;
+
 
     public eventViewModel() {
         // Initialize MutableLiveData objects
+        artistsList = new MutableLiveData<>();
+
     }
 
 
 
-    public eventViewModel(String localDate, String localTime, String artist, String venueName, String genreNames, String priceRange, String status, String buyTicketUrl, String seatMapUrl) {
+    public eventViewModel(String localDate, String localTime, String artist, String venueName, String genreNames, String priceRange, String status, String buyTicketUrl, String seatMapUrl, String musicOrNot) {
         this.localDate.setValue(localDate);
         this.localTime.setValue(localTime);
         this.artist.setValue(artist);
@@ -49,6 +56,7 @@ public class eventViewModel  extends ViewModel {
         this.status.setValue(status);
         this.buyTicketUrl.setValue(buyTicketUrl);
         this.seatMapUrl.setValue(seatMapUrl);
+        this.musicOrNot.setValue(musicOrNot);
 
         Log.d("eventViewModel", "localDate: " + localDate);
         Log.d("eventViewModel", "localTime: " + localTime);
@@ -59,6 +67,8 @@ public class eventViewModel  extends ViewModel {
         Log.d("eventViewModel", "status: " + status);
         Log.d("eventViewModel", "buyTicketUrl: " + buyTicketUrl);
         Log.d("eventViewModel", "seatMapUrl: " + seatMapUrl);
+        Log.d("eventViewModel", "musicOrNot: " + musicOrNot);
+
     }
 
 
@@ -134,30 +144,22 @@ public class eventViewModel  extends ViewModel {
         seatMapUrl.setValue(seatMapUrlValue);
     }
 
-//    public static class eventViewModelFactory implements ViewModelProvider.Factory {
-//
-//        private String localDate, localTime, artist, venueName, genreNames, priceRange, status, buyTicketUrl, seatMapUrl;
-//
-//        public eventViewModelFactory(String localDate, String localTime, String artist, String venueName, String genreNames, String priceRange, String status, String buyTicketUrl, String seatMapUrl) {
-//            this.localDate = localDate;
-//            this.localTime = localTime;
-//            this.artist = artist;
-//            this.venueName = venueName;
-//            this.genreNames = genreNames;
-//            this.priceRange = priceRange;
-//            this.status = status;
-//            this.buyTicketUrl = buyTicketUrl;
-//            this.seatMapUrl = seatMapUrl;
-//
-//            Log.d("eventViewModel", "localDate: "+ localDate);
-//        }
-//
-//        @NonNull
-//        @Override
-//        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-//            return (T) new eventViewModel(localDate, localTime, artist, venueName, genreNames, priceRange, status, buyTicketUrl, seatMapUrl);
-//        }
-//    }
+    public LiveData<String> getmusicOrNot() {
+        return musicOrNot;
+    }
+
+    public void setmusicOrNot(String musicOrNotValue) {
+        musicOrNot.setValue(musicOrNotValue);
+    }
+
+    public void setArtistsList(List<Artists> artists) {
+        artistsList.postValue(artists);
+    }
+
+    public LiveData<List<Artists>> getArtistsList() {
+        return artistsList;
+    }
+
 
 }
 

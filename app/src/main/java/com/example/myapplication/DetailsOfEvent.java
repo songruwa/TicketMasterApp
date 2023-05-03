@@ -49,6 +49,7 @@ public class DetailsOfEvent extends AppCompatActivity {
     private String buyTicketUrl;
     private String seatMapUrl;
 
+    private String musicOrNot;
 
     private artist_card artistFragment;
     private details_card detailsFragment;
@@ -163,8 +164,14 @@ public class DetailsOfEvent extends AppCompatActivity {
                             Log.d("DetailsOfEvent", "localDate: "+localDate);
 
                             // Get the artist/team names
-                            artist = response.getString("name");
+//                            artist = response.getString("name");
+//                            Log.d("DetailsOfEvent", "artist/team: " + artist);
+
+                            JSONObject aarrtt = response.getJSONObject("_embedded");
+                            artist = aarrtt.getJSONArray("attractions").getJSONObject(0).optString("name");
                             Log.d("DetailsOfEvent", "artist/team: " + artist);
+
+
 
 
                             // Get the venue name
@@ -177,7 +184,7 @@ public class DetailsOfEvent extends AppCompatActivity {
 
                             String subGenre = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("subGenre").optString("name","");
                             String genre = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("genre").optString("name","");
-                            String segment = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("segment").optString("name", "");
+                            musicOrNot = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("segment").optString("name", "");
                             String subType = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("subType").optString("name","");
                             String type = response.getJSONArray("classifications").getJSONObject(0).getJSONObject("type").optString("name","");
                             if (!subGenre.isEmpty()) {
@@ -186,8 +193,8 @@ public class DetailsOfEvent extends AppCompatActivity {
                             if (!genre.isEmpty()) {
                                 sb.append(genre).append(" | ");
                             }
-                            if (!segment.isEmpty()) {
-                                sb.append(segment).append(" | ");
+                            if (!musicOrNot.isEmpty()) {
+                                sb.append(musicOrNot).append(" | ");
                             }
                             if (!subType.isEmpty()) {
                                 sb.append(subType).append(" | ");
@@ -198,6 +205,13 @@ public class DetailsOfEvent extends AppCompatActivity {
 
                             genreNames = sb.toString();
                             Log.d("DetailsOfEvent", "genre: " + genreNames);
+
+                            Log.d("DetailsOfEvent", "musicOrNot: " + musicOrNot);
+
+
+
+
+
 
                             // Get the price range
                             JSONArray priceRanges = response.optJSONArray("priceRanges");
@@ -237,6 +251,7 @@ public class DetailsOfEvent extends AppCompatActivity {
                             eventDetailsViewModel.setStatus(status);
                             eventDetailsViewModel.setBuyTicketUrl(buyTicketUrl);
                             eventDetailsViewModel.setSeatMapUrl(seatMapUrl);
+                            eventDetailsViewModel.setmusicOrNot(musicOrNot);
 
 
                             // TODO: Update the UI with the extracted information
