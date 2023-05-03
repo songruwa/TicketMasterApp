@@ -51,9 +51,17 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         // Load the album covers and Spotify link here
 
         // Load artist image using Glide
-//        Glide.with(holder.artistImage.getContext())
-//                .load(currentArtist.getImageUrl())
-//                .into(holder.artistImage);
+        if (!"none".equals(currentArtist.getImageUrl())) {
+            Glide.with(holder.artistImg.getContext())
+                    .load(currentArtist.getImageUrl())
+                    .placeholder(R.drawable.ic_baseline_image_24)
+                    .error(R.drawable.error_image)
+                    .override(200, 200)
+                    .centerCrop()
+                    .into(holder.artistImg);
+        } else {
+            holder.artistImg.setImageResource(R.drawable.error_image); // Set a default image when imageUrl is "none"
+        }
     }
 
     @Override
@@ -71,6 +79,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         ImageView albumCover2;
         ImageView albumCover3;
         TextView SpotifyLink;
+        ImageView artistImg;
 
         // Add other views as needed
 
@@ -84,6 +93,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
             albumCover2 = itemView.findViewById(R.id.album_cover_2);
             albumCover3 = itemView.findViewById(R.id.album_cover_3);
             SpotifyLink = itemView.findViewById(R.id.spotify_link);
+            artistImg = itemView.findViewById(R.id.artist_image);
 
         }
     }

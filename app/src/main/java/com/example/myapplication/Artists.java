@@ -8,14 +8,16 @@ public class Artists {
     private String popularity;
     private String spotifyLink;
     private List<String> albumCovers;
+    private String imageUrl;
 
 
-    public Artists(String name, String followers, String popularity, String spotifyLink, List<String> albumCovers) {
+    public Artists(String name, String followers, String popularity, String spotifyLink, List<String> albumCovers, String imageUrl) {
         this.name = name;
         this.followers = followers;
         this.popularity = popularity;
         this.spotifyLink = spotifyLink;
         this.albumCovers = albumCovers;
+        this.imageUrl = imageUrl;
     }
 
     public String getName() {
@@ -37,5 +39,7 @@ public class Artists {
     public List<String> getAlbumCovers() {
         return albumCovers;
     }
+
+    public String getImageUrl() {return imageUrl;};
 
 }
