@@ -35,6 +35,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
+
+
 
 
 
@@ -49,6 +52,10 @@ public class venue_card extends Fragment  implements OnMapReadyCallback{
     private MapView mapView;
     private GoogleMap mMap;
     private LatLng venueLatLng;
+
+    private ExpandableTextView openHoursExpandableTextView;
+    private ExpandableTextView generalRulesExpandableTextView;
+    private ExpandableTextView childRulesExpandableTextView;
 
 
     @Override
@@ -67,6 +74,12 @@ public class venue_card extends Fragment  implements OnMapReadyCallback{
         venueAddressTextView = view.findViewById(R.id.venue_address);
         venueCityStateTextView = view.findViewById(R.id.venue_city_state);
         venueContactInfoTextView = view.findViewById(R.id.venue_contact_info);
+
+        // Inside onViewCreated method
+        openHoursExpandableTextView = view.findViewById(R.id.open_hours_expandable_text_view);
+        generalRulesExpandableTextView = view.findViewById(R.id.general_rule_expandable_text_view);
+        childRulesExpandableTextView = view.findViewById(R.id.child_rule_expandable_text_view);
+
 
         mapView = view.findViewById(R.id.map_view);
 
@@ -104,6 +117,18 @@ public class venue_card extends Fragment  implements OnMapReadyCallback{
                             String city = venueObj.getJSONObject("city").getString("name");
                             String state = venueObj.getJSONObject("state").getString("name");
                             String phoneNumber = venueObj.getJSONObject("boxOfficeInfo").getString("phoneNumberDetail");
+
+                            // Fetch open hours, general rules, and child rules
+                            String noInformation = "No information available";
+                            JSONObject boxOfficeInfo = venueObj.optJSONObject("boxOfficeInfo");
+                            String openHours = boxOfficeInfo != null ? boxOfficeInfo.optString("openHoursDetail", noInformation) : noInformation;
+
+                            JSONObject generalInfo = venueObj.optJSONObject("generalInfo");
+                            String generalRule = generalInfo != null ? generalInfo.optString("generalRule", noInformation) : noInformation;
+                            String childRule = generalInfo != null ? generalInfo.optString("childRule", noInformation) : noInformation;
+
+                            updateExpandableTextViews(openHours, generalRule, childRule);
+
 
                             // Update UI with fetched data
                             venueNameTextView.setText(name);
@@ -186,6 +211,13 @@ public class venue_card extends Fragment  implements OnMapReadyCallback{
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
+
+    private void updateExpandableTextViews(String openHours, String generalRule, String childRule) {
+        openHoursExpandableTextView.setText(openHours);
+        generalRulesExpandableTextView.setText(generalRule);
+        childRulesExpandableTextView.setText(childRule);
+    }
+
 
 
 }
