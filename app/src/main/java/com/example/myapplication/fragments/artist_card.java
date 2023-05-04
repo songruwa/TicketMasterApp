@@ -126,20 +126,16 @@ public class artist_card extends Fragment {
                                 String followers = artistObj.getJSONObject("followers").getString("total");
                                 String popularity = artistObj.getString("popularity");
                                 String spotifyLink = artistObj.getJSONObject("external_urls").getString("spotify");
-//                                Log.d("artist_card", "spotifyLink: " + spotifyLink);
 
                                 String artistId = artistObj.getString("id");
 
                                 List<String> albumCovers = fetchAlbumCovers(artistId); // Fetch album covers here
-//                                String imageUrl = artistObj.getJSONArray("images").getJSONObject(2).getString("url");
-//                                Log.d("artist_card", "image url: " + imageUrl);
+
                                 String imageUrl;
                                 try {
                                     imageUrl = artistObj.getJSONArray("images").getJSONObject(2).getString("url");
-                                    Log.d("artist_card", "image url: " + imageUrl);
                                 } catch (JSONException e) {
                                     imageUrl = "none";
-                                    Log.d("artist_card", "image url not found, defaulting to: " + imageUrl);
                                 }
 
                                 Artists artist = new Artists(name, followers, popularity, spotifyLink, albumCovers, imageUrl);
@@ -176,8 +172,14 @@ public class artist_card extends Fragment {
 
                             for (int i = 0; i < items.length(); i++) {
                                 JSONObject albumObj = items.getJSONObject(i);
-                                String coverUrl = albumObj.getJSONArray("images").getJSONObject(0).getString("url");
-                                Log.d("artist_card", "coverUrl: "+ i + coverUrl);
+                                String coverUrl;
+                                try {
+                                    coverUrl = albumObj.getJSONArray("images").getJSONObject(0).getString("url");
+                                    Log.d("artist_card", "coverUrl: " + artistId +""+ coverUrl);
+                                } catch (JSONException e) {
+                                    coverUrl = "none";
+                                    Log.d("artist_card", "coverUrl not found, defaulting to: " + coverUrl);
+                                }
                                 albumCovers.add(coverUrl);
                             }
 
