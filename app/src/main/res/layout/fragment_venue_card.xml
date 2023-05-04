@@ -10,7 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#000000">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +34,8 @@
                     android:layout_row="0"
                     android:layout_column="0"
                     android:text="Name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/venue_name"
@@ -42,7 +45,8 @@
                     android:layout_column="1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Venue Name" />
+                    android:text="Venue Name"
+                    android:textColor="@color/green"/>
 
                 <TextView
                     android:id="@+id/venue_address_label"
@@ -51,7 +55,8 @@
                     android:layout_row="1"
                     android:layout_column="0"
                     android:text="Address"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/venue_address"
@@ -61,7 +66,8 @@
                     android:layout_column="1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Venue Address" />
+                    android:text="Venue Address"
+                    android:textColor="@color/green"/>
 
                 <TextView
                     android:id="@+id/venue_city_state_label"
@@ -70,7 +76,8 @@
                     android:layout_row="2"
                     android:layout_column="0"
                     android:text="City/State"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/venue_city_state"
@@ -80,7 +87,8 @@
                     android:layout_column="1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Venue City, State" />
+                    android:text="Venue City, State"
+                    android:textColor="@color/green"/>
 
                 <TextView
                     android:id="@+id/venue_contact_info_label"
@@ -89,7 +97,8 @@
                     android:layout_row="3"
                     android:layout_column="0"
                     android:text="Contact Info"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/venue_contact_info"
@@ -99,7 +108,8 @@
                     android:layout_column="1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Venue Contact Info" />
+                    android:text="Venue Contact Info"
+                    android:textColor="@color/green"/>
 
             </GridLayout>
 
@@ -127,7 +137,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Open Hours"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:textSize="25dp"/>
             <!-- Open Hours -->
             <com.ms.square.android.expandabletextview.ExpandableTextView
                 android:id="@+id/open_hours_expandable_text_view"
@@ -161,7 +172,8 @@
                 android:layout_height="wrap_content"
                 android:text="General Rules"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:textSize="25dp"/>
             <!-- General Rule -->
             <com.ms.square.android.expandabletextview.ExpandableTextView
                 android:id="@+id/general_rule_expandable_text_view"
@@ -194,7 +206,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Child Rules"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textSize="25dp"/>
             <!-- Child Rule -->
             <com.ms.square.android.expandabletextview.ExpandableTextView
                 android:id="@+id/child_rule_expandable_text_view"

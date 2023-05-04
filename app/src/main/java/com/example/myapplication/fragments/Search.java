@@ -371,31 +371,6 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
 
 
-//    //tic-table api GET
-//    private void searchEvents(String keywordInput, int distance, String segmentId, String lat, String lng) {
-//
-//
-//        String apiUrl = String.format("https://ticketmasterhw6.nn.r.appspot.com/tic?keyword=%s&distance=%d&segmentId=%s&lat=%s&lng=%s",
-//                Uri.encode(keywordInput), distance, segmentId, lat, lng);
-//
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        tableData = response;
-//                        Log.d("EventsSearchResult", tableData.toString());                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        });
-//
-//        requestQueue.add(jsonObjectRequest);
-//    }
-
-
-
     // Performing action when ItemSelected
     // from spinner, Overriding onItemSelected method
     @Override

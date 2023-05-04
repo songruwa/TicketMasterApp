@@ -9,12 +9,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -71,6 +75,7 @@ public class DetailsOfEvent extends AppCompatActivity {
 
         // https://www.youtube.com/watch?v=FcPUFp8Qrps
         // Set up the back button in the top bar
+//        https://stackoverflow.com/questions/34110565/how-to-add-back-button-on-actionbar-in-android-studio
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -119,12 +124,31 @@ public class DetailsOfEvent extends AppCompatActivity {
 
     }
 
-    // Handle back button clicks
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_details_of_event, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == android.R.id.home) {
             onBackPressed();
+            return true;
+        } else if (id == R.id.action_favorite) {
+            // Handle favorite button click
+            Toast.makeText(this, "Favorite button clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.action_facebook) {
+            // Handle Facebook button click
+            shareOnFacebook();
+            return true;
+        } else if (id == R.id.action_twitter) {
+            // Handle Twitter button click
+            shareOnTwitter();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -269,6 +293,21 @@ public class DetailsOfEvent extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
+
+    private void shareOnFacebook() {
+        String url = "https://www.facebook.com/sharer/sharer.php?u=" + buyTicketUrl + "&src=sdkpreparse";
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+    }
+
+    private void shareOnTwitter() {
+        String tweetText = "Check " + getTitle() + " on Ticketmaster " + buyTicketUrl;
+        String hashtags = "hashtag1,hashtag2";
+        String twitterUrl = "https://twitter.com/intent/tweet?text=" + Uri.encode(tweetText) + "&hashtags=" + hashtags;
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitterUrl));
+        startActivity(browserIntent);
+    }
+
 
 
 }

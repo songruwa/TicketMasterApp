@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements selectListener{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
         tabLayout = findViewById(R.id.tab_layout);
