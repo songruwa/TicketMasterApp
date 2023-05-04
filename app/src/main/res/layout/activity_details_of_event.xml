@@ -14,7 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="36dp">
+        tools:layout_editor_absoluteY="36dp"
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/green"
+        android:background="@color/black">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_item_detail"

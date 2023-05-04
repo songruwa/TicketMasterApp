@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:orientation="horizontal"
             app:rowCount="8"
+            android:layout_gravity="center"
             tools:context=".fragments.details_card">
 
             <TextView

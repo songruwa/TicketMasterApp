@@ -13,5 +13,7 @@
     <string name="detail_view">DETAILS</string>
     <string name="artist_view">ARTIST(S)</string>
     <string name="venue_view">VENUE</string>
+    <string name="enter_location">Enter the Location</string>
+    <string name="noFavorite">No favorites available</string>
 
 </resources>

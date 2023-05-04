@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements selectListener{
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
+        setTitle(R.string.app_name);
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager2 = findViewById(R.id.view_pager);

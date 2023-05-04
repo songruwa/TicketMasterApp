@@ -11,7 +11,10 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/tab_view">
+        android:contentDescription="@string/tab_view"
+        app:tabBackground="@color/black"
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/green">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_item_search"

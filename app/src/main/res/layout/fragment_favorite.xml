@@ -9,8 +9,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/favorite_label"
+        android:text="@string/noFavorite"
         android:layout_gravity="center"
-        android:textSize="32dp"/>
+        android:textSize="32dp"
+        android:textColor="@color/green"
+        android:background="@color/black"/>
 
 </FrameLayout>

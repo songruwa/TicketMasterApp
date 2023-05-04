@@ -104,8 +104,8 @@
             android:backgroundTint="#00FF00"
             android:ems="10"
             android:inputType="text"
-            android:text="Enter the Location"
-            android:textColor="#F6F3F3" />
+            android:hint="@string/enter_location"
+            android:textColorHint="@color/white"/>
 
         <LinearLayout
             android:layout_width="267dp"

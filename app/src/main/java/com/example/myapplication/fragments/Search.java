@@ -47,6 +47,9 @@ import android.widget.Switch;
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
 
+import android.widget.Toast;
+import android.text.TextUtils;
+
 
 
 
@@ -233,6 +236,21 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
             @Override
             public void onClick(View v) {
                 // Create an instance of SearchResultsFragment and pass the parameters to it
+
+                String keyword = autoCompleteTextView.getText().toString().trim();
+                String location = locationInput.getText().toString().trim();
+                boolean locationEnabled = !autoDetectSwitch.isChecked();
+
+                if (TextUtils.isEmpty(keyword)) {
+                    Toast.makeText(getContext(), "Please enter a keyword", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (locationEnabled && TextUtils.isEmpty(location)) {
+                    Toast.makeText(getContext(), "Please enter a location", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 SearchResultsFragment searchResultsFragment = new SearchResultsFragment();
                 Bundle args = new Bundle();
                 args.putInt("distance_input", distance_input);
@@ -245,6 +263,22 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
                 NavHostFragment.findNavController(Search.this).navigate(R.id.action_searchFragment_to_searchResultsFragment, args);
 
+            }
+        });
+
+        Button clearButton = view.findViewById(R.id.Clearbutton);
+
+        // Set an OnClickListener on the Clear button
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Clear the input fields and remove any validation error messages
+                autoCompleteTextView.setText("");
+                distanceInput.setText("10");
+                locationInput.setText("");
+                categorySpinner.setSelection(0);
+                autoDetectSwitch.setChecked(false);
+                locationInput.setVisibility(View.VISIBLE);
             }
         });
 
