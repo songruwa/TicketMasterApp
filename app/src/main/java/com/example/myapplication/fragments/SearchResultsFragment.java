@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -47,6 +48,7 @@ public class SearchResultsFragment extends Fragment implements selectListener  {
     private ProgressBar progressBar;
     private selectListener mListener;
     private List<Event> eventList = new ArrayList<>();
+    private TextView noResultsText;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -74,6 +76,8 @@ public class SearchResultsFragment extends Fragment implements selectListener  {
         recyclerView = view.findViewById(R.id.recyclerView);
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
+
+        noResultsText = view.findViewById(R.id.no_results_text);
 
         requestQueue = Volley.newRequestQueue(getContext());
 
@@ -117,42 +121,49 @@ public class SearchResultsFragment extends Fragment implements selectListener  {
                     public void onResponse(JSONObject response) {
                         progressBar.setVisibility(View.GONE);
                         try {
-                            tableData = response;
-                            Log.d("Table Data is", tableData.toString());
-                            JSONArray eventsArray = response.getJSONObject("_embedded").getJSONArray("events");
-                            Log.d("EventsArray is", eventsArray.getString(0));
-                            List<Event> eventList = new ArrayList<>();
+                            if (response.has("_embedded")) {
+                                tableData = response;
+                                Log.d("Table Data is", tableData.toString());
+                                JSONArray eventsArray = response.getJSONObject("_embedded").getJSONArray("events");
+                                Log.d("EventsArray is", eventsArray.getString(0));
+                                List<Event> eventList = new ArrayList<>();
 
-                            for (int i = 0; i < eventsArray.length(); i++) {
-                                JSONObject eventObject = eventsArray.getJSONObject(i);
-                                Event event = new Event();
-                                event.setName(eventObject.getString("name"));
-                                event.setLocalDate(eventObject.getJSONObject("dates").getJSONObject("start").optString("localDate",""));
-                                event.setLocalTime(eventObject.getJSONObject("dates").getJSONObject("start").optString("localTime", ""));
-                                event.setSegment(eventObject.getJSONArray("classifications").getJSONObject(0).getJSONObject("segment").optString("name",""));
-                                event.setId(eventObject.getString("id"));
+                                for (int i = 0; i < eventsArray.length(); i++) {
+                                    JSONObject eventObject = eventsArray.getJSONObject(i);
+                                    Event event = new Event();
+                                    event.setName(eventObject.getString("name"));
+                                    event.setLocalDate(eventObject.getJSONObject("dates").getJSONObject("start").optString("localDate",""));
+                                    event.setLocalTime(eventObject.getJSONObject("dates").getJSONObject("start").optString("localTime", ""));
+                                    event.setSegment(eventObject.getJSONArray("classifications").getJSONObject(0).getJSONObject("segment").optString("name",""));
+                                    event.setId(eventObject.getString("id"));
 
-                                JSONArray imageArray = eventObject.getJSONArray("images");
-                                List<String> imageList = new ArrayList<>();
-                                for (int j = 0; j < imageArray.length(); j++) {
-                                    imageList.add(imageArray.getJSONObject(j).getString("url"));
+                                    JSONArray imageArray = eventObject.getJSONArray("images");
+                                    List<String> imageList = new ArrayList<>();
+                                    for (int j = 0; j < imageArray.length(); j++) {
+                                        imageList.add(imageArray.getJSONObject(j).getString("url"));
+                                    }
+                                    event.setImages(imageList);
+
+                                    JSONObject venueObject = eventObject.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0);
+                                    Venue venue = new Venue();
+                                    venue.setName(venueObject.getString("name"));
+                                    event.setVenue(venue);
+
+                                    eventList.add(event);
                                 }
-                                event.setImages(imageList);
+                                Log.d("Event List size is", String.valueOf(eventList.size()));
+                                EventListAdapter adapter = new EventListAdapter(eventList, mListener);
 
-                                JSONObject venueObject = eventObject.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0);
-                                Venue venue = new Venue();
-                                venue.setName(venueObject.getString("name"));
-                                event.setVenue(venue);
 
-                                eventList.add(event);
+
+                                recyclerView.setAdapter(adapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                noResultsText.setVisibility(View.GONE); // Hide "no results" message
+                            } else {
+                                noResultsText.setVisibility(View.VISIBLE); // Show "no results" message
+
                             }
-                            Log.d("Event List size is", String.valueOf(eventList.size()));
-                            EventListAdapter adapter = new EventListAdapter(eventList, mListener);
 
-
-
-                            recyclerView.setAdapter(adapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
