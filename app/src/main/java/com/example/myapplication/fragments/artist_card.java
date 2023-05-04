@@ -36,6 +36,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.net.Uri;
+import android.widget.TextView;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -53,6 +55,8 @@ public class artist_card extends Fragment {
     private eventViewModel eventDetailsViewModel;
     private boolean isMusic;
     private String musicianId;
+    private TextView artistDataUnavailable;
+
 
 
     @Override
@@ -67,6 +71,9 @@ public class artist_card extends Fragment {
         ArtistAdapter artistAdapter = new ArtistAdapter(new ArrayList<>());
         recyclerView.setAdapter(artistAdapter);
 
+        TextView artistDataUnavailable = view.findViewById(R.id.artist_data_unavailable);
+
+
 
         eventDetailsViewModel = new ViewModelProvider(requireActivity()).get(eventViewModel.class);
 
@@ -75,7 +82,6 @@ public class artist_card extends Fragment {
             public void onChanged(String musicOrNot) {
                 if ("Music".equals(musicOrNot)) {
                     isMusic = true;
-                    Log.d("artist_card", "isMusic: "+ isMusic);
                 } else {
                     isMusic = false;
                 }
@@ -87,10 +93,13 @@ public class artist_card extends Fragment {
             public void onChanged(String artist) {
                 if (isMusic == true) {
                     fetchSpotifyData(artist);
-
-
                 } else {
+                    // Show the "Artist/Music data unavailable" message
+                    artistDataUnavailable.setVisibility(View.VISIBLE);
 
+                    // Hide the artist information views
+                    RecyclerView recyclerView = view.findViewById(R.id.artist_recycler_view);
+                    recyclerView.setVisibility(View.GONE);
                 }
             }
         });

@@ -160,7 +160,7 @@ public class DetailsOfEvent extends AppCompatActivity {
                             // Get the date and time
                             JSONObject dates = response.getJSONObject("dates").getJSONObject("start");
                             localDate = dates.getString("localDate");
-                            localTime = dates.getString("localTime");
+                            localTime = dates.optString("localTime","None");
                             Log.d("DetailsOfEvent", "localDate: "+localDate);
 
                             // Get the artist/team names
