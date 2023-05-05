@@ -90,6 +90,7 @@ public class SearchResultsFragment extends Fragment implements selectListener  {
         Bundle args = getArguments();
         int distanceInput = args.getInt("distance_input");
         String selectedEventName = args.getString("selectedEventName");
+        Log.d("SearchResultsFragment", "selectedEventName: " + selectedEventName);
         String segmentId = args.getString("segmentId");
         String latitude = args.getString("latitude");
         String longitude = args.getString("longitude");
@@ -183,5 +184,7 @@ public class SearchResultsFragment extends Fragment implements selectListener  {
     public void onItemClicked(@NonNull Context context, @NonNull Event event) {
 
     }
+
+
 }
 

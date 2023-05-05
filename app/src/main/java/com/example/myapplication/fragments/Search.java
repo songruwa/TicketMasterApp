@@ -78,6 +78,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
     private String latitude;
     private String longitude;
     private JSONObject tableData;
+    private Switch autoDetectSwitch;
 
 
 
@@ -187,7 +188,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
 
         // Switch Setup
-        Switch autoDetectSwitch = view.findViewById(R.id.switch1);
+        autoDetectSwitch = view.findViewById(R.id.switch1);
         autoDetectSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -197,12 +198,14 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     autoDetectLocation();
                 } else {
                     locationInput.setVisibility(View.VISIBLE); // Show the location input
+
                 }
             }
         });
 
         //setup google geocoding
         EditText geocodingInfo = view.findViewById(R.id.LOCATIONINPUT);
+
 
         geocodingInfo.addTextChangedListener(new TextWatcher() {
 
@@ -225,6 +228,8 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
             }
         });
+
+
 
 
         // click search button, searchEvents will be called
@@ -251,13 +256,16 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     return;
                 }
 
+
                 SearchResultsFragment searchResultsFragment = new SearchResultsFragment();
                 Bundle args = new Bundle();
                 args.putInt("distance_input", distance_input);
+                Log.d("Search", "distance_input: " + distance_input);
                 args.putString("selectedEventName", selectedEventName);
                 Log.d("Search", "selectedEventName is: "+selectedEventName);
                 args.putString("segmentId", segmentId);
                 args.putString("latitude", latitude);
+                Log.d("Search", "latitude: " + latitude);
                 args.putString("longitude", longitude);
                 searchResultsFragment.setArguments(args);
 
@@ -284,6 +292,8 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
         return view;
     }
+
+
 
     private void fetchSuggestions(String keyword) {
         String apiUrl = "https://ticketmasterhw6.nn.r.appspot.com/search?keyword=" + keyword;
@@ -360,16 +370,18 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
     //calling googleMap api to get lat&lng based on user's location input
     String encodedLocation = "";
-    String GoogleapiKey = "AIzaSyDoxPEsB40HkiNgo_ZdgpenEgKgzRcPQrQ";
+    String GoogleapiKey = "AIzaSyAl6eLkKSVJMY8Ep-fd0856cc4RZQlZu_E";
 
     private void geocoding(String locationInput) {
+        Log.d("Geocoding", "Geocoding method called with input: " + locationInput);
+
         try {
             encodedLocation = URLEncoder.encode(locationInput, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         String geocodingUrl = String.format("https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s", encodedLocation, GoogleapiKey);
-
+        Log.d("Geocoding", "geocodingUrl: "+ geocodingUrl);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, geocodingUrl, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -424,5 +436,6 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
 
 }

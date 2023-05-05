@@ -14,10 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}"  />
+            android:value="AIzaSyAl6eLkKSVJMY8Ep-fd0856cc4RZQlZu_E" />
 
         <activity
             android:name=".DetailsOfEvent"
@@ -27,9 +34,9 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashAc"
             android:exported="true"
-            android:theme="@style/AppTheme.SplashScreen">
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
